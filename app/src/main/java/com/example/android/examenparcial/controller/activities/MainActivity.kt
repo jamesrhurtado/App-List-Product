@@ -7,11 +7,16 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import com.example.android.examenparcial.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val navView: BottomNavigationView = findViewById(R.id.bnvMenu)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
