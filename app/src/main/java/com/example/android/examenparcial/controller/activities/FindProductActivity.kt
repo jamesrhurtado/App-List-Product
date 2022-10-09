@@ -58,7 +58,6 @@ class FindProductActivity: AppCompatActivity() {
                     val products: List<Product> = response.body()!!.products?:ArrayList()
                     recyclerView.adapter= ProductAdapter(products)
                     //Log.d("Activity successful", "Products: "+products.isEmpty())
-
                 } else{
                     Log.d("Activity fail", "Error: "+response.message())
                 }

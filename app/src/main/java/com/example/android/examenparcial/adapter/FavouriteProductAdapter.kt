@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.prototype_favourite.view.*
 import kotlinx.android.synthetic.main.prototype_product.view.ivProduct
 import kotlinx.android.synthetic.main.prototype_product.view.tvName
 
-class FavouriteProductAdapter(private val movies: List<Product>, private val context: Context): RecyclerView.Adapter<FavouriteProductAdapter.ViewHolder>(){
-    lateinit var products: List<Product>
+class FavouriteProductAdapter(private val products: List<Product>): RecyclerView.Adapter<FavouriteProductAdapter.ViewHolder>(){
+
     class ViewHolder(val view: View): RecyclerView.ViewHolder(view) {
         val tvName = view.tvName
         val ivImage = view.ivProduct
@@ -24,30 +24,30 @@ class FavouriteProductAdapter(private val movies: List<Product>, private val con
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view= LayoutInflater.from(context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.prototype_favourite, parent, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val product=products[position]
+        val product = products[position]
         holder.tvName.text=product.title
         val picBuilder = Picasso.Builder(holder.itemView.context)
         picBuilder.downloader(OkHttp3Downloader(holder.itemView.context))
         picBuilder.build().load(product.image).into(holder.ivImage)
 
         holder.fabRemove.setOnClickListener{
-            deleteProduct(product)
+            deleteProduct(product, holder.itemView.context)
         }
     }
 
-    private fun deleteProduct(product: Product) {
-        ProductDB.getInstance(this.context).getProductDAO().deleteProduct(product)
-        Toast.makeText(this.context, "Product deleted", Toast.LENGTH_SHORT).show();
+    private fun deleteProduct(product: Product,  context: Context) {
+        ProductDB.getInstance(context).getProductDAO().deleteProduct(product)
+        Toast.makeText(context, "Product deleted", Toast.LENGTH_SHORT).show();
     }
 
     override fun getItemCount(): Int {
-        return movies.size
+        return products.size
     }
 
 }
