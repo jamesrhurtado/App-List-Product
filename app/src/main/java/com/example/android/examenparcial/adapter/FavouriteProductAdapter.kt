@@ -43,7 +43,7 @@ class FavouriteProductAdapter(private val products: List<Product>): RecyclerView
 
     private fun deleteProduct(product: Product,  context: Context) {
         ProductDB.getInstance(context).getProductDAO().deleteProduct(product)
-        Toast.makeText(context, "Product deleted", Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, "Product deleted. Go home and come back to update", Toast.LENGTH_SHORT).show();
     }
 
     override fun getItemCount(): Int {

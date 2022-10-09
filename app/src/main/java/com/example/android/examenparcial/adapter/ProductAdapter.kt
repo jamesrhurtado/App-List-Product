@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.examenparcial.R
 import com.example.android.examenparcial.database.ProductDB
@@ -31,7 +32,7 @@ class ProductAdapter(private val products: List<Product>):
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val product = products[position]
         holder.tvName.text=product.title
-        holder.tvId.id = product.id
+        holder.tvId.text = product.id.toString()
         val picBuilder = Picasso.Builder(holder.itemView.context)
         picBuilder.downloader(OkHttp3Downloader(holder.itemView.context))
         picBuilder.build().load(product.image).into(holder.ivImage)
@@ -43,6 +44,7 @@ class ProductAdapter(private val products: List<Product>):
 
     private fun saveProduct(product: Product, context: Context) {
         ProductDB.getInstance(context).getProductDAO().insertProduct(product)
+        Toast.makeText(context, "Product has been added to favourites", Toast.LENGTH_SHORT).show();
     }
 
     override fun getItemCount(): Int {
